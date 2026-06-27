@@ -28,6 +28,175 @@ const Step = ({ n, title, children }: { n: number; title: string; children: Reac
   </div>
 );
 
+const TW_V3_CONFIG = `// tailwind.config.js
+module.exports = {
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    // ↓ Required: scan the library's output so its classes aren't purged
+    "./node_modules/@aryanjain/ui/dist/**/*.js",
+  ],
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          50: "#eff6ff", 100: "#dbeafe", 200: "#bfdbfe", 300: "#93c5fd",
+          400: "#60a5fa", 500: "#3b82f6", 600: "#2563eb", 700: "#1d4ed8",
+          800: "#1e40af", 900: "#1e3a8a", 950: "#172554",
+        },
+        danger:  { 50:"#fef2f2", 100:"#fee2e2", 500:"#ef4444", 600:"#dc2626", 700:"#b91c1c", 800:"#991b1b", 950:"#450a0a" },
+        success: { 50:"#f0fdf4", 100:"#dcfce7", 500:"#22c55e", 600:"#16a34a", 700:"#15803d", 950:"#052e16" },
+        warning: { 50:"#fffbeb", 100:"#fef3c7", 500:"#f59e0b", 600:"#d97706", 700:"#b45309", 950:"#451a03" },
+      },
+      keyframes: {
+        "indeterminate":         { "0%": { transform: "translateX(-100%)" }, "100%": { transform: "translateX(400%)" } },
+        "marquee":               { "0%": { transform: "translateX(0)" },     "100%": { transform: "translateX(-25%)" } },
+        "marquee-reverse":       { "0%": { transform: "translateX(-25%)" },  "100%": { transform: "translateX(0)" } },
+        "typing":                { from: { width: "0" }, to: { width: "100%" } },
+        "blink":                 { "0%, 100%": { "border-color": "transparent" }, "50%": { "border-color": "currentColor" } },
+        "slide-in-from-right-4": { "0%": { transform: "translateX(1rem)", opacity: "0" }, "100%": { transform: "translateX(0)", opacity: "1" } },
+        "fade-in":               { "0%": { opacity: "0" }, "100%": { opacity: "1" } },
+        "zoom-in-95":            { "0%": { transform: "scale(0.95)", opacity: "0" }, "100%": { transform: "scale(1)", opacity: "1" } },
+        "blur-in":               { "0%": { filter: "blur(4px)", opacity: "0" }, "100%": { filter: "blur(0)", opacity: "1" } },
+      },
+      animation: {
+        "indeterminate":         "indeterminate 1.5s ease-in-out infinite",
+        "marquee":               "marquee var(--marquee-speed, 40s) linear infinite",
+        "marquee-reverse":       "marquee-reverse var(--marquee-speed, 40s) linear infinite",
+        "typing":                "typing 2s steps(40) forwards, blink .75s step-end infinite",
+        "blur-in":               "blur-in 0.4s ease forwards",
+        "slide-in-from-right-4": "slide-in-from-right-4 0.2s ease-out",
+        "fade-in":               "fade-in 0.15s ease-out",
+        "zoom-in-95":            "zoom-in-95 0.2s ease-out",
+      },
+    },
+  },
+  plugins: [],
+};`;
+
+const TW_V4_CONFIG = `/* app/globals.css */
+
+/* 1. Import Tailwind v4 */
+@import "tailwindcss";
+
+/* 2. Scan the library's dist so its classes aren't purged */
+@source "../node_modules/@aryanjain/ui/dist";
+
+/* 3. Design tokens — replaces theme.extend in the old config */
+@theme {
+  --color-brand-50:  #eff6ff;  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;  --color-brand-900: #1e3a8a;
+  --color-brand-950: #172554;
+
+  --color-danger-50:  #fef2f2;  --color-danger-100: #fee2e2;
+  --color-danger-500: #ef4444;  --color-danger-600: #dc2626;
+  --color-danger-700: #b91c1c;  --color-danger-800: #991b1b;
+  --color-danger-950: #450a0a;
+
+  --color-success-50:  #f0fdf4;  --color-success-100: #dcfce7;
+  --color-success-500: #22c55e;  --color-success-600: #16a34a;
+  --color-success-700: #15803d;  --color-success-950: #052e16;
+
+  --color-warning-50:  #fffbeb;  --color-warning-100: #fef3c7;
+  --color-warning-500: #f59e0b;  --color-warning-600: #d97706;
+  --color-warning-700: #b45309;  --color-warning-950: #451a03;
+
+  --animate-indeterminate:         indeterminate 1.5s ease-in-out infinite;
+  --animate-marquee:               marquee var(--marquee-speed, 40s) linear infinite;
+  --animate-marquee-reverse:       marquee-reverse var(--marquee-speed, 40s) linear infinite;
+  --animate-typing:                typing 2s steps(40) forwards, blink .75s step-end infinite;
+  --animate-blur-in:               blur-in 0.4s ease forwards;
+  --animate-slide-in-from-right-4: slide-in-from-right-4 0.2s ease-out;
+  --animate-fade-in:               fade-in 0.15s ease-out;
+  --animate-zoom-in-95:            zoom-in-95 0.2s ease-out;
+}
+
+/* 4. Keyframe definitions */
+@keyframes indeterminate {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+@keyframes marquee {
+  0%   { transform: translateX(0); }    100% { transform: translateX(-25%); }
+}
+@keyframes marquee-reverse {
+  0%   { transform: translateX(-25%); } 100% { transform: translateX(0); }
+}
+@keyframes typing {
+  from { width: 0; } to { width: 100%; }
+}
+@keyframes blink {
+  0%, 100% { border-color: transparent; } 50% { border-color: currentColor; }
+}
+@keyframes slide-in-from-right-4 {
+  0%   { transform: translateX(1rem); opacity: 0; }
+  100% { transform: translateX(0);    opacity: 1; }
+}
+@keyframes fade-in {
+  0% { opacity: 0; } 100% { opacity: 1; }
+}
+@keyframes zoom-in-95 {
+  0%   { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1);    opacity: 1; }
+}
+@keyframes blur-in {
+  0%   { filter: blur(4px); opacity: 0; }
+  100% { filter: blur(0);   opacity: 1; }
+}
+
+/* 5. Class-based dark mode — matches the library's expectation */
+@variant dark (&:where(.dark, .dark *));`;
+
+const TailwindVersionTabs = () => {
+  const [tab, setTab] = useState<"v4" | "v3">("v4");
+  return (
+    <div>
+      <div className="flex gap-1 mb-3 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg w-fit">
+        {(["v4", "v3"] as const).map(v => (
+          <button
+            key={v}
+            onClick={() => setTab(v)}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
+              tab === v
+                ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+            }`}
+          >
+            Tailwind {v}
+            {v === "v4" && <span className="ml-1.5 text-xs bg-brand-100 dark:bg-brand-900 text-brand-700 dark:text-brand-300 px-1.5 py-0.5 rounded-full">Latest</span>}
+          </button>
+        ))}
+      </div>
+
+      {tab === "v4" ? (
+        <div className="space-y-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Tailwind v4 has no <code className="font-mono text-xs bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded">tailwind.config.js</code>. Everything goes into your global CSS file (<code className="font-mono text-xs bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded">app/globals.css</code>):
+          </p>
+          <CodeBlock lang="css" code={TW_V4_CONFIG} />
+          <div className="p-3 rounded-lg bg-brand-50 dark:bg-brand-950/30 border border-brand-200 dark:border-brand-800 text-xs text-brand-700 dark:text-brand-300 space-y-1">
+            <p><strong>@source</strong> — replaces the <code className="font-mono">content</code> array; tells Tailwind to scan the library dist.</p>
+            <p><strong>@theme</strong> — replaces <code className="font-mono">theme.extend</code>; tokens become CSS variables.</p>
+            <p><strong>@variant dark</strong> — replaces <code className="font-mono">darkMode: "class"</code>; activates dark styles when the <code className="font-mono">.dark</code> class is on a parent.</p>
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Update your <code className="font-mono text-xs bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded">tailwind.config.js</code> at the project root:
+          </p>
+          <CodeBlock lang="js" code={TW_V3_CONFIG} />
+        </div>
+      )}
+    </div>
+  );
+};
+
 export const GettingStartedPage = () => (
   <div className="max-w-3xl mx-auto py-6">
     <div className="mb-10">
@@ -40,7 +209,7 @@ export const GettingStartedPage = () => (
       <p className="font-semibold text-amber-800 dark:text-amber-400 mb-2">Prerequisites</p>
       <ul className="text-sm text-amber-700 dark:text-amber-300 space-y-1 list-disc list-inside">
         <li>React 18+ or Next.js 13+</li>
-        <li>Tailwind CSS 3.4+</li>
+        <li>Tailwind CSS v3.4+ or v4</li>
         <li>TypeScript 5+ (recommended)</li>
       </ul>
     </div>
@@ -54,30 +223,7 @@ export const GettingStartedPage = () => (
       </Step>
 
       <Step n={2} title="Configure Tailwind CSS">
-        <p className="text-sm text-gray-600 dark:text-gray-400">Add the library to your Tailwind content paths so its classes aren't purged:</p>
-        <CodeBlock lang="js" code={`// tailwind.config.js
-module.exports = {
-  content: [
-    "./app/**/*.{ts,tsx}",
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    // ↓ Required: scan the library's output
-    "./node_modules/@aryanjain/ui/dist/**/*.js",
-  ],
-  darkMode: "class",
-  theme: {
-    extend: {
-      // Optional: share design tokens from the library
-      colors: {
-        brand: {
-          50: "#eff6ff",
-          // ... (copy from library's tailwind.config.js)
-        },
-      },
-    },
-  },
-  plugins: [],
-};`} />
+        <TailwindVersionTabs />
       </Step>
 
       <Step n={3} title="Import the CSS">
