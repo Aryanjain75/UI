@@ -1,0 +1,8 @@
+src/
+.storybook/
+node_modules/
+*.stories.tsx
+*.test.tsx
+tsup.config.ts
+tsconfig.json
+postcss.config.js

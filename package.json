@@ -1,0 +1,70 @@
+{
+  "name": "@aryanjain/ui",
+  "version": "1.0.0",
+  "description": "Shared UI component library for Next.js projects",
+  "author": "Aryan",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "nextjs",
+    "ui",
+    "components",
+    "tailwind"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./tailwind": "./tailwind.config.js"
+  },
+  "files": [
+    "dist",
+    "tailwind.config.js"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build",
+    "docs": "cd docs && npm run dev",
+    "docs:build": "cd docs && npm run build"
+  },
+  "peerDependencies": {
+    "next": ">=12",
+    "react": ">=17",
+    "react-dom": ">=17"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "8.6.18",
+    "@storybook/addon-essentials": "8.6.18",
+    "@storybook/react": "8.6.18",
+    "@storybook/react-vite": "8.6.18",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@vitejs/plugin-react": "^4",
+    "autoprefixer": "^10",
+    "next": "^15",
+    "postcss": "^8",
+    "react": "^18",
+    "react-dom": "^18",
+    "storybook": "8.6.18",
+    "tailwindcss": "^3",
+    "tsup": "^8",
+    "typescript": "^5",
+    "vite": "^5",
+    "vitest": "^4.1.9"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.21.0",
+    "tailwind-merge": "^2.5.0"
+  }
+}

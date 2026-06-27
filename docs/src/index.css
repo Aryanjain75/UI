@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  body { @apply bg-white text-gray-900 antialiased; font-family: "Inter", system-ui, sans-serif; }
+  .dark body { @apply bg-gray-950 text-gray-100; }
+  :root { color-scheme: light; }
+  .dark { color-scheme: dark; }
+}
+
+@layer utilities {
+  .scrollbar-thin { scrollbar-width: thin; }
+  .scrollbar-thin::-webkit-scrollbar { width: 5px; height: 5px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { @apply bg-gray-300 dark:bg-gray-700 rounded-full; }
+}
