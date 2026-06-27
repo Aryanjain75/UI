@@ -1,0 +1,8 @@
+node_modules
+docs/node_modules
+dist
+docs/dist
+storybook-static
+.git
+.gitignore
+*.md
